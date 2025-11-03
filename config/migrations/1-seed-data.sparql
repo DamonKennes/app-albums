@@ -1,0 +1,48 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX schema: <http://schema.org/>
+PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+
+INSERT DATA {
+    GRAPH <http://mu.semte.ch/graphs/public> {
+        <http://data.example.com/artists/B1>
+        a schema:MusicGroup;
+        mu:uuid "B1";
+        foaf:name "Radiohead".
+
+        <http://data.example.com/artists/B2>
+        a schema:MusicGroup;
+        mu:uuid "B2";
+        foaf:name "IDLES".
+
+        <http://data.example.com/albums/A1>
+        a schema:Album;
+        mu:uuid "A1";
+        dct:title "The Bends";
+        schema:datePublished "2025-10-09T00:00:00.000Z"^^<http://www.w3.org/2001/XMLSchema#date>;
+        schema:image "https://upload.wikimedia.org/wikipedia/en/5/55/Radioheadthebends.png";
+        schema:genre "rock";
+        schema:ratingValue 0;
+        schema:byArtist <http://data.example.com/artists/B1>.
+
+        <http://data.example.com/albums/A2>
+        a schema:Album;
+        mu:uuid "A2";
+        dct:title "Kid A";
+        schema:datePublished "2025-10-09T00:00:00.000Z"^^<http://www.w3.org/2001/XMLSchema#date>;
+        schema:image "https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Radioheadkida.png/250px-Radioheadkida.png";
+        schema:genre "rock";
+        schema:ratingValue 0;
+        schema:byArtist <http://data.example.com/artists/B1>.
+
+        <http://data.example.com/albums/A3>
+        a schema:Album;
+        mu:uuid "A3";
+        dct:title "Brutalism";
+        schema:datePublished "2025-10-09T00:00:00.000Z"^^<http://www.w3.org/2001/XMLSchema#date>;
+        schema:image "https://upload.wikimedia.org/wikipedia/en/3/3c/Idles-Brutalism.jpg";
+        schema:genre "punk";
+        schema:ratingValue 0;
+        schema:byArtist <http://data.example.com/artists/B2>.
+    }
+}

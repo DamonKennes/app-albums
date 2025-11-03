@@ -1,17 +1,39 @@
 export default [
-  {
-    match: {
-      subject: {},
+    {
+        match: {
+           //
+        },
+        callback: {
+            url: "http://resource/.mu/delta",
+            method: "POST",
+        },
+        options: {
+            resourceFormat: "v0.0.1",
+            gracePeriod: 1000,
+            foldEffectiveChanges: true,
+            ignoreFromSelf: true,
+        },
     },
-    callback: {
-      url: "http://resource/.mu/delta",
-      method: "POST",
+    {
+        match: {
+            predicate: {
+                type: 'uri',
+                value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+            },
+            object:{
+                type: 'uri',
+                value: 'http://schema.org/Review'
+            }
+        },
+        callback: {
+            url: 'http://stats-service/delta',
+            method: "POST",
+        },
+        options: {
+            resourceFormat: "v0.0.1",
+            gracePeriod: 1000,
+            foldEffectiveChanges: true,
+            ignoreFromSelf: true,
+        },
     },
-    options: {
-      resourceFormat: "v0.0.1",
-      gracePeriod: 1000,
-      foldEffectiveChanges: true,
-      ignoreFromSelf: true,
-    },
-  }
 ];

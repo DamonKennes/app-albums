@@ -22,14 +22,14 @@ services:
       - "logging=true"
     logging: *default-logging
 
-  special-books:
-    image: semtech/mu-python-template:2.0.0-beta.2
-    ports:
-        - "8888:80"
+  stats-service:
+    image: stats-service:latest
     environment:
-      MODE: "development"
+      NODE_ENV: "development"
+    ports:
+      - "8888:80"
     volumes:
-        - "/home/damon/Documents/ABB/testproj/special-books-service/:/app/"
+      - /home/damon/Documents/ABB/stats-service/service:/app/
 
   # Your extra services here
   resource:
@@ -56,6 +56,8 @@ services:
     image: semtech/mu-delta-notifier:0.4.0
     volumes:
       - ./config/delta:/config/
+    environment:
+      DEBUG_DELTA_SEND: 'true'
     labels:
       - "logging=true"
     logging: *default-logging

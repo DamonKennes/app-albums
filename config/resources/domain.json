@@ -25,6 +25,10 @@
         "genre": {
           "type": "string",
           "predicate": "schema:genre"
+        },
+        "averagerating": {
+          "type": "number",
+          "predicate": "schema:ratingValue"
         }
       },
       "relationships": {
@@ -34,7 +38,7 @@
           "cardinality": "many"
         },
         "ratings": {
-          "predicate": "schema:review",
+          "predicate": "schema:itemReviewed",
           "target": "rating",
           "cardinality": "many",
           "inverse": true
