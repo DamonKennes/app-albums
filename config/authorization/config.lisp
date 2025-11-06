@@ -37,6 +37,9 @@
   :mu "http://mu.semte.ch/vocabularies/core/"
   :session "http://mu.semte.ch/vocabularies/session/"
   :ext "http://mu.semte.ch/vocabularies/ext/"
+  :foaf "http://xmlns.com/foaf/0.1/"
+  :schema "http://schema.org/"
+
   ;; Custom prefix URIs here, prefix casing is ignored
   )
 
@@ -51,16 +54,14 @@
 ;; indexes.
 
 (define-graph public ("http://mu.semte.ch/graphs/public")
-  (_ -> _)) ; public allows ANY TYPE -> ANY PREDICATE in the direction
-            ; of the arrow
+  ("schema:Album" -> _)
+  ("schema:MusicGroup" -> _)
+  ("foaf:Person" -> _)
+  ("foaf:OnlineAccount" -> _))
 
-;;(define-graph accounts ("http://mu.semte.ch/graphs/accounts")
-;;  (_ -> _)) ; public allows ANY TYPE -> ANY PREDICATE in the direction
-            ; of the arrow
+(define-graph private ("http://mu.semte.ch/graphs/private")
+  ("schema:Review" -> _))
 
-;;(define-graph users ("http://mu.semte.ch/graphs/users")
-;;  (_ -> _)) ; public allows ANY TYPE -> ANY PREDICATE in the direction
-            ; of the arrow
 ;; Example:
 ;; (define-graph company ("http://mu.semte.ch/graphs/companies/")
 ;;   ("foaf:OnlineAccount"
@@ -76,9 +77,22 @@
 
 (supply-allowed-group "public")
 
+(supply-allowed-group "authenticated"
+  :query "PREFIX session: <http://mu.semte.ch/vocabularies/session/>
+          PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+          PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+          SELECT ?uuid WHERE {
+            <SESSION_ID> session:account/^foaf:account/mu:uuid ?uuid .
+          }"
+  )
+
 (grant (read write)
        :to-graph public
        :for-allowed-group "public")
+
+(grant (read write)
+       :to-graph private
+       :for-allowed-group "authenticated")
 
 ;;(grant (read write)
 ;;       :to-graph accounts

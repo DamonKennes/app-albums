@@ -47,6 +47,11 @@ services:
     links:
       - database:database
 
+  cache:
+    image: semtech/mu-cache:2.0.2
+    links:
+      - resource:backend
+
   # Your extra services here
   resource:
     image: semtech/mu-cl-resources:1.26.0
