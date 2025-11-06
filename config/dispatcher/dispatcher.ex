@@ -33,9 +33,27 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/ratings/"
   end
 
-  match "/users/*path", @json do
-    Proxy.forward conn, path, "http://resource/users/"
+  match "/gebruikers/*path", @json do
+    Proxy.forward conn, path, "http://resource/gebruikers/"
   end
+
+  match "/useraccounts/*path", @json do
+    Proxy.forward conn, path, "http://resource/useraccounts/"
+  end
+
+  # Login
+  match "/sessions/*path", @any do
+    Proxy.forward conn, path, "http://login/sessions/"
+  end
+
+  # Registration
+  match "/accounts/*path", @any do
+    Proxy.forward conn, path, "http://registration/accounts/"
+  end
+
+ # match "/useraccounts/*path", @any do
+ #   Proxy.forward conn, path, "http://resource/useraccounts/"
+ # end
 
   match "/*_", %{ layer: :not_found } do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )

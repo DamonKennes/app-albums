@@ -18,12 +18,8 @@ export default [
         match: {
             predicate: {
                 type: 'uri',
-                value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+                value: 'http://schema.org/itemReviewed'
             },
-            object:{
-                type: 'uri',
-                value: 'http://schema.org/Review'
-            }
         },
         callback: {
             url: 'http://stats-service/delta',
