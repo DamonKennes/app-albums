@@ -34,7 +34,7 @@ services:
   login:
     image: semtech/mu-login-service:3.0.0
     environment:
-      USERS_GRAPH: "http://mu.semte.ch/graphs/public"
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
       SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
     links:
     - database:database
@@ -42,7 +42,7 @@ services:
   registration:
     image: semtech/mu-registration-service:2.8.0
     environment:
-      USERS_GRAPH: "http://mu.semte.ch/graphs/public"
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
       SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
     links:
       - database:database

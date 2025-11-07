@@ -55,7 +55,9 @@
 
 (define-graph public ("http://mu.semte.ch/graphs/public")
   ("schema:Album" -> _)
-  ("schema:MusicGroup" -> _)
+  ("schema:MusicGroup" -> _))
+
+(define-graph users ("http://mu.semte.ch/graphs/users")
   ("foaf:Person" -> _)
   ("foaf:OnlineAccount" -> _))
 
@@ -86,21 +88,21 @@
           }"
   )
 
-(grant (read write)
+(grant (read)
        :to-graph public
        :for-allowed-group "public")
+
+(grant (read write)
+       :to-graph public
+       :for-allowed-group "authenticated")
 
 (grant (read write)
        :to-graph private
        :for-allowed-group "authenticated")
 
-;;(grant (read write)
-;;       :to-graph accounts
-;;       :for-allowed-group "public")
-
-;;(grant (read write)
- ;;      :to-graph users
-;;       :for-allowed-group "public")
+(grant (read write)
+       :to-graph users
+       :for-allowed-group "authenticated")
 
 ;; example:
 
