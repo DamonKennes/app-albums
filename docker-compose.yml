@@ -23,13 +23,7 @@ services:
     logging: *default-logging
 
   stats-service:
-    image: stats-service:latest
-    environment:
-      NODE_ENV: "development"
-    ports:
-      - "8888:80"
-    volumes:
-      - /home/damon/Documents/ABB/stats-service/service:/app/
+    image: damonqmimo/stats-service:v2.0
 
   login:
     image: semtech/mu-login-service:3.0.0
