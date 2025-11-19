@@ -25,6 +25,13 @@ services:
   stats-service:
     image: damonqmimo/stats-service:v3.0
 
+  frontend:
+    image: damonqmimo/frontend-albums-rating:v1.0
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
+
   login:
     image: semtech/mu-login-service:3.0.0
     environment:

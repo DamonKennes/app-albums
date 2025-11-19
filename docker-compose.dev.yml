@@ -13,3 +13,5 @@ services:
       - "8888:80"
     volumes:
       - /home/damon/Documents/ABB/testproj/stats-service-fix:/app/
+  frontend:
+    restart: "no"

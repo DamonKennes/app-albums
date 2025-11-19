@@ -9,7 +9,7 @@ defmodule Dispatcher do
   @json %{ accept: %{ json: true } }
   @html %{ accept: %{ html: true } }
 
-  define_layers [ :static, :services, :fall_back, :not_found ]
+  define_layers [ :static, :services, :api, :frontend, :fall_back, :not_found ]
 
   # In order to forward the 'themes' resource to the
   # resource service, use the following forward rule:
@@ -21,23 +21,23 @@ defmodule Dispatcher do
   # Run `docker-compose restart dispatcher` after updating
   # this file.
 
-  match "/albums/*path", @json do
+  match "/albums/*path", %{accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/albums/"
   end
 
-  match "/artists/*path", @json do
+  match "/artists/*path", %{accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/artists/"
   end
 
-  match "/ratings/*path", @json do
+  match "/ratings/*path", %{accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/ratings/"
   end
 
-  match "/gebruikers/*path", @json do
+  match "/gebruikers/*path", %{accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/gebruikers/"
   end
 
-  match "/useraccounts/*path", @json do
+  match "/useraccounts/*path", %{accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/useraccounts/"
   end
 
@@ -49,6 +49,22 @@ defmodule Dispatcher do
   # Registration
   match "/accounts/*path", @any do
     Proxy.forward conn, path, "http://registration/accounts/"
+  end
+
+  match "/assets/*path", %{layer: :api} do
+    Proxy.forward(conn, path, "http://frontend/assets/")
+  end
+
+  match "/@appuniversum/*path", %{layer: :api} do
+    Proxy.forward(conn, path, "http://frontend/@appuniversum/")
+  end
+
+  match "/*path", %{accept: [:html], layer: :api} do
+    Proxy.forward(conn, [], "http://frontend/index.html")
+  end
+
+  match "/*_path", %{layer: :frontend} do
+    Proxy.forward(conn, [], "http://frontend/index.html")
   end
 
  # match "/useraccounts/*path", @any do
