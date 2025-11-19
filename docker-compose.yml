@@ -23,7 +23,7 @@ services:
     logging: *default-logging
 
   stats-service:
-    image: damonqmimo/stats-service:v2.0
+    image: damonqmimo/stats-service:v3.0
 
   login:
     image: semtech/mu-login-service:3.0.0

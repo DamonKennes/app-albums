@@ -6,10 +6,10 @@ services:
     ports:
       - "8890:8890"
   stats-service:
-    image: stats-service:latest
+    image: damonqmimo/stats-service:v3.0
     environment:
       NODE_ENV: "development"
     ports:
       - "8888:80"
     volumes:
-      - /home/damon/Documents/ABB/stats-service/service:/app/
+      - /home/damon/Documents/ABB/testproj/stats-service-fix:/app/
